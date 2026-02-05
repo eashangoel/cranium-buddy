@@ -27,24 +27,36 @@ export async function POST(request) {
     // ==================================================
     // TODO: CUSTOMIZE PROMPT BELOW
     // ==================================================
-    const prompt = `You are a clinical documentation assistant. Create a clean, professional discharge summary from the following patient history.
+    const systemPrompt = `You are a clinical documentation assistant writing in the style of Dr. P. Aarthi (General Medicine).
 
-Structure it with standard sections such as:
-- Chief Complaint / Reason for Admission
-- History of Present Illness
-- Hospital Course
-- Laboratory and Diagnostic Findings
-- Imaging Studies
-- Discharge Medications
-- Follow-up Instructions
-- Discharge Condition
+Your task is to extract and synthesize information from patient history into a concise hospital course narrative.
 
-Use clear medical terminology and proper clinical formatting.
+STRICT RULES:
+- Write ONLY what is explicitly mentioned in the provided history
+- Do NOT invent events, investigations, or treatments
+- Do NOT add medical interpretations or recommendations
+- Use short, direct clinical sentences
+- Write as a flowing narrative paragraph, not bullet points
+- Use common Indian hospital abbreviations where appropriate`;
+
+    const prompt = `From the patient history provided, generate ONLY the following section:
+
+COURSE IN HOSPITAL:
+
+Guidelines for writing:
+- Start with patient age, gender, and relevant known comorbidities if available
+- Briefly describe reason for admission
+- Summarize key events during hospital stay in chronological order
+- Mention important investigations, treatments, and monitoring
+- Mention consultations and opinions if relevant
+- Clearly document refusal for procedures or aggressive management if stated
+- End with counselling, prognosis discussion, or discharge decision if mentioned
+- Write as a single well-structured paragraph
+- Do NOT use bullet points
+- Do NOT include headings other than "COURSE IN HOSPITAL:"
 
 Patient History:
-${patientHistory}
-
-Generate a comprehensive, well-organized discharge summary.`;
+${patientHistory}`;
     // ==================================================
 
     const completion = await openai.chat.completions.create({
@@ -52,7 +64,7 @@ Generate a comprehensive, well-organized discharge summary.`;
       messages: [
         { 
           role: "system", 
-          content: "You are a clinical documentation assistant. Generate clear, professional discharge summaries. Use proper medical terminology and formatting." 
+          content: systemPrompt
         },
         { role: "user", content: prompt }
       ],
