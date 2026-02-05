@@ -154,7 +154,7 @@ export default function DischargeSummary() {
               value={generatedSummary}
               onChange={(e) => setGeneratedSummary(e.target.value)}
               rows={20}
-              className={`w-full px-4 py-3 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical document-style ${showOutput ? 'animate-fade-in-up' : ''}`}
+              className={`w-full px-4 py-3 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical ${showOutput ? 'animate-fade-in-up' : ''}`}
             />
           )}
         </div>

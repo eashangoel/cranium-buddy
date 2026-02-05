@@ -157,7 +157,7 @@ export default function DailyNotes() {
         />
 
         {/* Action Buttons */}
-        <div className="flex gap-3 sticky bottom-4 pb-4">
+        <div className="flex gap-3 mt-6">
           <button
             onClick={handleGenerate}
             disabled={isLoading}
@@ -224,7 +224,7 @@ export default function DailyNotes() {
             onChange={(e) => setGeneratedNote(e.target.value)}
             placeholder="Generated clinical note will appear here..."
             rows={20}
-            className={`w-full px-4 py-3 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical document-style ${showOutput ? 'animate-fade-in-up' : ''}`}
+            className={`w-full px-4 py-3 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical ${showOutput ? 'animate-fade-in-up' : ''}`}
           />
         </div>
       </div>

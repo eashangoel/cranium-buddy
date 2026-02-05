@@ -9,7 +9,7 @@ export default function VitalsSection({ data, onChange }) {
   };
 
   return (
-    <CollapsibleCard title="Vitals" defaultOpen={true} icon={Heart}>
+    <CollapsibleCard title="Vitals" defaultOpen={false} icon={Heart}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">

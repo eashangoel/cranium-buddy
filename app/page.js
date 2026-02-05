@@ -7,10 +7,10 @@ import { FileText, ClipboardList, Shield, Sparkles } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 w-full">
       {/* Header */}
-      <header className="bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 shadow-lg">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <header className="bg-gradient-to-r from-purple-600 via-purple-500 to-blue-600 shadow-lg w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-white/20 backdrop-blur-sm rounded-lg">
               <Sparkles className="w-6 h-6 text-white" />
@@ -28,7 +28,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <TabGroup>
           <TabList className="flex space-x-1 bg-white rounded-xl shadow-md border border-gray-200 p-1.5 mb-6">
             <Tab
@@ -71,8 +71,8 @@ export default function Home() {
       </main>
 
       {/* Footer Disclaimer */}
-      <footer className="border-t border-gray-200 bg-white mt-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <footer className="border-t border-gray-200 bg-white mt-12 w-full">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-purple-600" />
