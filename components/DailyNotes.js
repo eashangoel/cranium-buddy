@@ -13,7 +13,7 @@ import MineralsSection from './MineralsSection';
 import MicrobiologySection from './MicrobiologySection';
 import UrineSection from './UrineSection';
 import ImagingSection from './ImagingSection';
-import { Loader2, Copy, Check } from 'lucide-react';
+import { Loader2, Copy, Check, Sparkles } from 'lucide-react';
 
 export default function DailyNotes() {
   const [formData, setFormData] = useState({
@@ -35,6 +35,7 @@ export default function DailyNotes() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
+  const [showOutput, setShowOutput] = useState(false);
 
   const handleSectionChange = (section, data) => {
     setFormData(prev => ({
@@ -60,11 +61,13 @@ export default function DailyNotes() {
     });
     setGeneratedNote('');
     setError('');
+    setShowOutput(false);
   };
 
   const handleGenerate = async () => {
     setIsLoading(true);
     setError('');
+    setShowOutput(false);
     
     try {
       const response = await fetch('/api/generate-daily-note', {
@@ -81,6 +84,7 @@ export default function DailyNotes() {
 
       const data = await response.json();
       setGeneratedNote(data.note);
+      setShowOutput(true);
     } catch (err) {
       setError('Failed to generate note. Please check your API key and try again.');
       console.error(err);
@@ -153,49 +157,56 @@ export default function DailyNotes() {
         />
 
         {/* Action Buttons */}
-        <div className="flex gap-3 sticky bottom-4">
+        <div className="flex gap-3 sticky bottom-4 pb-4">
           <button
             onClick={handleGenerate}
             disabled={isLoading}
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className={`flex-1 btn-gradient ${isLoading ? 'loading' : ''} text-white font-semibold py-3.5 px-6 rounded-lg shadow-lg flex items-center justify-center gap-2 min-h-[48px]`}
           >
             {isLoading ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Generating...
+                <span>Generating...</span>
               </>
             ) : (
-              'Generate Daily Note'
+              <>
+                <Sparkles className="w-5 h-5" />
+                <span>Generate Daily Note</span>
+              </>
             )}
           </button>
           <button
             onClick={handleClearForm}
-            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition-colors"
+            className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3.5 px-6 rounded-lg transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 min-h-[48px]"
           >
-            Clear Form
+            Clear
           </button>
         </div>
       </div>
 
       {/* RIGHT COLUMN - Output */}
       <div className="lg:sticky lg:top-4 lg:self-start">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 card-hover">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Generated Note</h2>
             {generatedNote && (
               <button
                 onClick={handleCopy}
-                className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md transition-colors text-sm font-medium"
+                className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all duration-300 text-sm font-medium min-h-[40px] ${
+                  copied
+                    ? 'bg-green-100 text-green-700 success-check'
+                    : 'bg-gray-100 hover:bg-purple-50 text-gray-700 hover:text-purple-700 hover:ring-2 hover:ring-purple-200'
+                }`}
               >
                 {copied ? (
                   <>
                     <Check className="w-4 h-4" />
-                    Copied!
+                    <span>Copied!</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-4 h-4" />
-                    Copy to Clipboard
+                    <span>Copy</span>
                   </>
                 )}
               </button>
@@ -203,7 +214,7 @@ export default function DailyNotes() {
           </div>
           
           {error && (
-            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
+            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md animate-fade-in-up">
               <p className="text-sm text-red-800">{error}</p>
             </div>
           )}
@@ -213,7 +224,7 @@ export default function DailyNotes() {
             onChange={(e) => setGeneratedNote(e.target.value)}
             placeholder="Generated clinical note will appear here..."
             rows={20}
-            className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm resize-vertical"
+            className={`w-full px-4 py-3 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical document-style ${showOutput ? 'animate-fade-in-up' : ''}`}
           />
         </div>
       </div>

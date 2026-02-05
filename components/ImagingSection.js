@@ -1,6 +1,7 @@
 'use client';
 
 import CollapsibleCard from './CollapsibleCard';
+import { Camera } from 'lucide-react';
 
 export default function ImagingSection({ data, onChange }) {
   const handleChange = (field, value) => {
@@ -8,7 +9,7 @@ export default function ImagingSection({ data, onChange }) {
   };
 
   return (
-    <CollapsibleCard title="Imaging / Procedures">
+    <CollapsibleCard title="Imaging / Procedures" icon={Camera}>
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -19,7 +20,7 @@ export default function ImagingSection({ data, onChange }) {
             onChange={(e) => handleChange('echo', e.target.value)}
             placeholder="Enter ECHO findings..."
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical"
           />
         </div>
         
@@ -32,7 +33,7 @@ export default function ImagingSection({ data, onChange }) {
             onChange={(e) => handleChange('usg', e.target.value)}
             placeholder="Enter USG findings..."
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical"
           />
         </div>
         
@@ -45,7 +46,7 @@ export default function ImagingSection({ data, onChange }) {
             onChange={(e) => handleChange('ct', e.target.value)}
             placeholder="Enter CT findings..."
             rows={3}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-vertical"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 resize-vertical"
           />
         </div>
       </div>

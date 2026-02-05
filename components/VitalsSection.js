@@ -1,6 +1,7 @@
 'use client';
 
 import CollapsibleCard from './CollapsibleCard';
+import { Heart } from 'lucide-react';
 
 export default function VitalsSection({ data, onChange }) {
   const handleChange = (field, value) => {
@@ -8,7 +9,7 @@ export default function VitalsSection({ data, onChange }) {
   };
 
   return (
-    <CollapsibleCard title="Vitals" defaultOpen={true}>
+    <CollapsibleCard title="Vitals" defaultOpen={true} icon={Heart}>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -19,7 +20,7 @@ export default function VitalsSection({ data, onChange }) {
             value={data.bpSystolic || ''}
             onChange={(e) => handleChange('bpSystolic', e.target.value)}
             placeholder="e.g., 120"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           />
         </div>
         
@@ -32,7 +33,7 @@ export default function VitalsSection({ data, onChange }) {
             value={data.bpDiastolic || ''}
             onChange={(e) => handleChange('bpDiastolic', e.target.value)}
             placeholder="e.g., 80"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           />
         </div>
         
@@ -45,7 +46,7 @@ export default function VitalsSection({ data, onChange }) {
             value={data.hr || ''}
             onChange={(e) => handleChange('hr', e.target.value)}
             placeholder="e.g., 72"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           />
         </div>
         
@@ -58,7 +59,7 @@ export default function VitalsSection({ data, onChange }) {
             value={data.rr || ''}
             onChange={(e) => handleChange('rr', e.target.value)}
             placeholder="e.g., 16"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           />
         </div>
         
@@ -71,7 +72,7 @@ export default function VitalsSection({ data, onChange }) {
             value={data.spo2 || ''}
             onChange={(e) => handleChange('spo2', e.target.value)}
             placeholder="e.g., 98"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           />
         </div>
         
@@ -82,7 +83,7 @@ export default function VitalsSection({ data, onChange }) {
           <select
             value={data.oxygenStatus || 'roomAir'}
             onChange={(e) => handleChange('oxygenStatus', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           >
             <option value="roomAir">Room Air</option>
             <option value="oxygen">Oxygen</option>
@@ -98,7 +99,7 @@ export default function VitalsSection({ data, onChange }) {
             value={data.temperature || ''}
             onChange={(e) => handleChange('temperature', e.target.value)}
             placeholder="e.g., 98.6"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md input-glow focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300"
           />
         </div>
       </div>

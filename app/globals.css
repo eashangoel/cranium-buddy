@@ -3,12 +3,21 @@
 :root {
   --background: #f5f5f5;
   --foreground: #212121;
-  --primary: #1976d2;
-  --primary-dark: #1565c0;
-  --primary-light: #42a5f5;
+  
+  /* Modern gradient colors */
+  --gradient-from: #7c3aed;
+  --gradient-to: #2563eb;
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
+  
   --card: #ffffff;
   --border: #e0e0e0;
   --muted: #757575;
+  
+  /* Success colors */
+  --success: #10b981;
+  --success-light: #34d399;
 }
 
 @theme inline {
@@ -21,11 +30,12 @@
   --color-border: var(--border);
   --color-muted: var(--muted);
   
-  /* Material Design shadows */
+  /* Enhanced shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   --shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   --shadow-lg: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  --shadow-glow: 0 0 20px rgba(124, 58, 237, 0.3);
   
   /* Material spacing (8px grid) */
   --spacing-unit: 8px;
@@ -51,7 +61,7 @@ button,
 input,
 textarea,
 select {
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Focus styles for accessibility */
@@ -61,4 +71,216 @@ textarea:focus-visible,
 select:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
+}
+
+/* Custom Animations */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(124, 58, 237, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.8), 0 0 30px rgba(37, 99, 235, 0.5);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-success {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Utility classes for animations */
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    90deg,
+    rgba(124, 58, 237, 0) 0%,
+    rgba(124, 58, 237, 0.4) 50%,
+    rgba(124, 58, 237, 0) 100%
+  );
+  background-size: 1000px 100%;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+
+.animate-pulse-success {
+  animation: pulse-success 0.5s ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Document-style textarea */
+.document-style {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.8;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+
+/* Gradient button base */
+.btn-gradient {
+  background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4), 0 6px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-gradient:active {
+  transform: translateY(0);
+}
+
+.btn-gradient:disabled {
+  background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+  transform: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Loading shimmer overlay for buttons */
+.btn-gradient.loading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Input glow effect */
+.input-glow:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+/* Success checkmark animation */
+.success-check {
+  animation: scaleIn 0.3s ease-out, pulse-success 0.5s ease-in-out 0.3s;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Reduce animation intensity on mobile for better performance */
+  .card-hover:hover {
+    transform: translateY(-1px);
+  }
+  
+  .btn-gradient:hover {
+    transform: translateY(-1px);
+  }
+  
+  /* Disable complex animations on mobile */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Optimize touch targets */
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Optimize rendering performance */
+.card-hover,
+.btn-gradient,
+input,
+textarea {
+  will-change: transform, opacity;
+}
+
+/* Prevent layout shift */
+@supports (content-visibility: auto) {
+  .card-hover {
+    content-visibility: auto;
+  }
 }
