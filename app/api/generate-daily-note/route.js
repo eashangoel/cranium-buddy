@@ -20,14 +20,42 @@ export async function POST(request) {
     // ==================================================
     // TODO: CUSTOMIZE PROMPT BELOW
     // ==================================================
-    const prompt = `You are a clinical documentation assistant. Generate a professional daily clinical note based on the following structured data.
+    const systemPrompt = `You are a clinical documentation assistant writing in the style of Dr. P. Aarthi (General Medicine).
 
-Only include sections where data is provided. Skip any empty fields. Use clear medical terminology and proper clinical formatting.
+Your task is ONLY to convert provided clinical data into a concise,
+real-world hospital daily note.
 
-Data:
-${JSON.stringify(formData, null, 2)}
+STRICT RULES:
+- Do NOT diagnose beyond what is explicitly stated
+- Do NOT invent symptoms, plans, or medications
+- Do NOT interpret lab values as normal or abnormal unless explicitly stated
+- Do NOT add explanations or textbook language
+- Do NOT add empathy or narrative fluff
+- Use short, direct clinical sentences
+- Use common abbreviations exactly as used in Indian hospital notes
+- Omit any section where data is missing
 
-Format the note professionally with appropriate headings and sections. Use standard medical abbreviations where appropriate.`;
+The output must look like a real daily ward note,
+not an AI-generated summary.`;
+
+    const prompt = `Write a DAILY PROGRESS NOTE using the structured data below.
+
+STYLE REQUIREMENTS:
+- Use brief lines, not long paragraphs
+- Use headings only where appropriate (O/E, Labs, Imaging, Plan)
+- Use abbreviations such as:
+  PR, BP, RR, SpO2, RA, CVS, RS, CNS, NAD, IVF, Inj, Tab
+- Mention vitals under O/E
+- Mention system exam as "CVS/RS/CNS/PA : NAD" when applicable
+- Labs should be listed plainly without interpretation
+- Imaging should be listed as reported
+- End with a short plan if provided
+- No bullet points unless listing medications or labs
+
+ONLY include information that is explicitly present in the data.
+
+STRUCTURED DATA:
+${JSON.stringify(formData, null, 2)}`;
     // ==================================================
 
     const completion = await openai.chat.completions.create({
@@ -35,7 +63,7 @@ Format the note professionally with appropriate headings and sections. Use stand
       messages: [
         { 
           role: "system", 
-          content: "You are a clinical documentation assistant. Generate clear, professional clinical notes. Use proper medical terminology and formatting. Only include information that was provided." 
+          content: systemPrompt
         },
         { role: "user", content: prompt }
       ],
